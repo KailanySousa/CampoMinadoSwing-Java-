@@ -75,7 +75,7 @@ public class Tabuleiro {
 
 	public void marcar(int linha, int coluna) {
 		this.campos.stream().filter(c -> c.getLinha() == linha && c.getColuna() == coluna).findFirst()
-				.ifPresent(c -> c.alternarMarcacao());
+				.ifPresent(c -> c.setMarcado());
 	}
 
 }
