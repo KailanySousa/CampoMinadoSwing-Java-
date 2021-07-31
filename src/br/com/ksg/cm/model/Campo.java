@@ -152,6 +152,8 @@ public class Campo {
 		this.aberto = false;
 		this.marcado = false;
 		this.minado = false;
+		
+		this.notifyObservers(CampoEvent.REINICIAR);
 	}
 	
 }

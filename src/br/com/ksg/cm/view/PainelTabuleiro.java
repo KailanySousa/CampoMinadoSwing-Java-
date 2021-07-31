@@ -2,7 +2,9 @@ package br.com.ksg.cm.view;
 
 import java.awt.GridLayout;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import br.com.ksg.cm.model.Tabuleiro;
 
@@ -16,7 +18,18 @@ public class PainelTabuleiro extends JPanel {
 		tabuleiro.getCampos().stream().forEach(c -> add(new BotaoCampo(c)));
 		
 		tabuleiro.registerObserver(e -> {
-			// TODO mostrar resultado para o usuário
+			
+			// o código só será executado depois que a tela for atualizada
+			SwingUtilities.invokeLater(() -> {
+				if(e.isGanhou()) {
+					JOptionPane.showMessageDialog(this, "Ganhou :)", "Resultado", JOptionPane.PLAIN_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this, "Perdeu :(", "Resultado", JOptionPane.PLAIN_MESSAGE);
+				}
+				
+				tabuleiro.reiniciar();
+			});
+			
 		});
 	}
 
