@@ -11,9 +11,9 @@ import br.com.ksg.cm.observer.CampoObserver;
 
 public class Tabuleiro implements CampoObserver {
 
-	private int linhas;
-	private int colunas;
-	private int minas;
+	private final int linhas;
+	private final int colunas;
+	private final int minas;
 
 	private final List<Campo> campos = new ArrayList<>();
 
@@ -27,6 +27,22 @@ public class Tabuleiro implements CampoObserver {
 		this.gerarCampo();
 		this.associarVizinhos();
 		this.sortearMinas();
+	}
+	
+	public int getLinhas() {
+		return this.linhas;
+	}
+
+	public int getColunas() {
+		return this.colunas;
+	}
+
+	public int getMinas() {
+		return this.minas;
+	}
+	
+	public List<Campo> getCampos(){
+		return this.campos;
 	}
 
 	public void registerObserver(Consumer<ResultadoEvent> observer) {
