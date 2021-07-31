@@ -1,10 +1,10 @@
-package br.com.ksg.cm.model;
+package br.com.ksg.cm.event;
 
-public class Resultado {
+public class ResultadoEvent {
 	
 	private final boolean ganhou;
 	
-	public Resultado(boolean ganhou) {
+	public ResultadoEvent(boolean ganhou) {
 		this.ganhou = ganhou;
 	}
 	

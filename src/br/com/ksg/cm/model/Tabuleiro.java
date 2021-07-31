@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import br.com.ksg.cm.event.CampoEvent;
+import br.com.ksg.cm.event.ResultadoEvent;
 import br.com.ksg.cm.observer.CampoObserver;
 
 public class Tabuleiro implements CampoObserver {
@@ -16,7 +17,7 @@ public class Tabuleiro implements CampoObserver {
 
 	private final List<Campo> campos = new ArrayList<>();
 
-	private final List<Consumer<Resultado>> observers = new ArrayList<>();
+	private final List<Consumer<ResultadoEvent>> observers = new ArrayList<>();
 
 	public Tabuleiro(int linhas, int colunas, int minas) {
 		this.linhas = linhas;
@@ -28,12 +29,12 @@ public class Tabuleiro implements CampoObserver {
 		this.sortearMinas();
 	}
 
-	public void registerObserver(Consumer<Resultado> observer) {
+	public void registerObserver(Consumer<ResultadoEvent> observer) {
 		this.observers.add(observer);
 	}
 
 	private void notifyObservers(boolean resultado) {
-		this.observers.stream().forEach(o -> o.accept(new Resultado(resultado)));
+		this.observers.stream().forEach(o -> o.accept(new ResultadoEvent(resultado)));
 	}
 
 	private void gerarCampo() {
