@@ -1,5 +1,9 @@
 # Projeto de Campo Minado Swing em Java
 
 <p>
-  Campo Minado desenvolvido utilizando Java com Swing 
+  Baseando no projeto desenvolvido de Campo Minado desenvolvido em Java com entrada e saída de dados pelo console, nesse repositório é possível encontrar uma nova versão do projeto utilizando Swing para desenvolver toda a parte gráfica.
+  <br>
+  
+  Clique <a href="https://github.com/KailanySousa/CampoMinadoSwing-Java-/CampoMinado.jar">aqui</a> para baixar o arquivo executável
 </p>
+
