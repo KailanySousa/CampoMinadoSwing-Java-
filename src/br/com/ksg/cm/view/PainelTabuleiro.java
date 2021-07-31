@@ -19,4 +19,5 @@ public class PainelTabuleiro extends JPanel {
 			// TODO mostrar resultado para o usuário
 		});
 	}
+
 }
