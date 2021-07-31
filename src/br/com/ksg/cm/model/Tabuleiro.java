@@ -2,15 +2,21 @@ package br.com.ksg.cm.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-public class Tabuleiro {
+import br.com.ksg.cm.event.CampoEvent;
+import br.com.ksg.cm.observer.CampoObserver;
+
+public class Tabuleiro implements CampoObserver {
 
 	private int linhas;
 	private int colunas;
 	private int minas;
 
 	private final List<Campo> campos = new ArrayList<>();
+
+	private final List<Consumer<Resultado>> observers = new ArrayList<>();
 
 	public Tabuleiro(int linhas, int colunas, int minas) {
 		this.linhas = linhas;
@@ -22,11 +28,21 @@ public class Tabuleiro {
 		this.sortearMinas();
 	}
 
+	public void registerObserver(Consumer<Resultado> observer) {
+		this.observers.add(observer);
+	}
+
+	private void notifyObservers(boolean resultado) {
+		this.observers.stream().forEach(o -> o.accept(new Resultado(resultado)));
+	}
+
 	private void gerarCampo() {
 		this.campos.removeAll(this.campos);
 		for (int i = 0; i < linhas; i++) {
 			for (int j = 0; j < colunas; j++) {
-				campos.add(new Campo(i, j));
+				Campo campo = new Campo(i, j);
+				campo.registerObserver(this);
+				campos.add(campo);
 			}
 		}
 	}
@@ -63,19 +79,33 @@ public class Tabuleiro {
 	}
 
 	public void abrir(int linha, int coluna) {
-		try {
-			this.campos.stream().filter(c -> c.getLinha() == linha && c.getColuna() == coluna).findFirst()
-					.ifPresent(c -> c.abrir());
-		} catch (Exception e) {
-			// FIXME Ajustar a implementação do metodo abrir
-			this.campos.forEach(c -> c.setAberto(true));
-			throw e;
-		}
+
+		this.campos.stream().filter(c -> c.getLinha() == linha && c.getColuna() == coluna).findFirst()
+				.ifPresent(c -> c.abrir());
+
+	}
+
+	private void mostrarMinas() {
+		this.campos.stream()
+			.filter(c -> c.isMinado())
+			.forEach(c -> c.setAberto(true));
 	}
 
 	public void marcar(int linha, int coluna) {
 		this.campos.stream().filter(c -> c.getLinha() == linha && c.getColuna() == coluna).findFirst()
 				.ifPresent(c -> c.setMarcado());
+	}
+
+	@Override
+	public void eventEmit(Campo campo, CampoEvent event) {
+
+		if (event == CampoEvent.EXPLODIR) {
+			this.mostrarMinas();
+			this.notifyObservers(false);
+		} else if (this.objetivoAlcancado()) {
+			this.notifyObservers(true);
+		}
+
 	}
 
 }

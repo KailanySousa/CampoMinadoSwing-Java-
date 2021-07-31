@@ -1,4 +1,7 @@
-package br.com.ksg.cm.model;
+package br.com.ksg.cm.observer;
+
+import br.com.ksg.cm.event.CampoEvent;
+import br.com.ksg.cm.model.Campo;
 
 @FunctionalInterface
 public interface CampoObserver {

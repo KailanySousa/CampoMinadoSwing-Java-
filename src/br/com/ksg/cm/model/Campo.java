@@ -3,6 +3,9 @@ package br.com.ksg.cm.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.ksg.cm.event.CampoEvent;
+import br.com.ksg.cm.observer.CampoObserver;
+
 public class Campo {
 
 	private final int linha;
@@ -25,11 +28,11 @@ public class Campo {
 		this.coluna = coluna;
 	}
 	
-	public void registrarObservador(CampoObserver observer) {
+	public void registerObserver(CampoObserver observer) {
 		this.observers.add(observer);
 	}
 	
-	private void notificarObservadores(CampoEvent event) {
+	private void notifyObservers(CampoEvent event) {
 		this.observers.stream().forEach(o ->o.eventEmit(this, event));
 	}
 
@@ -73,9 +76,9 @@ public class Campo {
 			this.marcado = !this.marcado;
 			
 			if(this.marcado) {
-				this.notificarObservadores(CampoEvent.MARCAR);
+				this.notifyObservers(CampoEvent.MARCAR);
 			} else {
-				this.notificarObservadores(CampoEvent.DESMARCAR);
+				this.notifyObservers(CampoEvent.DESMARCAR);
 			}
 		}
 	}
@@ -85,7 +88,7 @@ public class Campo {
 			this.aberto = true;
 			
 			if(this.minado) {
-				this.notificarObservadores(CampoEvent.EXPLODIR);
+				this.notifyObservers(CampoEvent.EXPLODIR);
 			} else {
 				this.setAberto(true);
 				if(this.vizinhancaSegura()) vizinhos.forEach(v -> v.abrir());
@@ -111,7 +114,7 @@ public class Campo {
 	
 	void setAberto(boolean aberto) {
 		this.aberto = aberto;
-		if(this.aberto) this.notificarObservadores(CampoEvent.ABRIR);
+		if(this.aberto) this.notifyObservers(CampoEvent.ABRIR);
 	}
 	
 	public boolean isAberto() {

@@ -1,4 +1,4 @@
-package br.com.ksg.cm.model;
+package br.com.ksg.cm.event;
 
 public enum CampoEvent {
 	
