@@ -11,8 +11,8 @@ public class Cores {
 	
 	public Cores() {
 		this.setPadrao(new Color(184, 184, 184));
-		this.setMarcar(new Color(189, 66, 68));
-		this.setExplodir(new Color(8, 179, 247));
+		this.setMarcar(new Color(8, 179, 247));
+		this.setExplodir(new Color(189, 66, 68));
 		this.setTextoVerde(new Color(0, 100, 0));
 	}
 	

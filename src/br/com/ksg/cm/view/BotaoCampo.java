@@ -17,23 +17,24 @@ public class BotaoCampo extends JButton implements CampoObserver, MouseListener 
 
 	private Campo campo;
 	private final Cores cores = new Cores();
-	
+
 	public BotaoCampo(Campo campo) {
 		this.campo = campo;
 		setBorder(BorderFactory.createBevelBorder(0));
 		setBackground(this.cores.getPadrao());
+		setOpaque(true);
 		
 		this.addMouseListener(this);
 		this.campo.registerObserver(this);
 	}
-	
+
 	@Override
 	public void eventEmit(Campo campo, CampoEvent event) {
 		switch (event) {
-		case ABRIR: 
+		case ABRIR:
 			this.aplicarEstiloAbrir();
 			break;
-		case MARCAR: 
+		case MARCAR:
 			this.aplicarEstiloMarcar();
 			break;
 		case EXPLODIR:
@@ -46,25 +47,31 @@ public class BotaoCampo extends JButton implements CampoObserver, MouseListener 
 	}
 
 	private void aplicarEstiloPadrao() {
-		// TODO Auto-generated method stub
-		
+		setBackground(this.cores.getPadrao());
+		setText("");
 	}
 
 	private void aplicarEstiloAbrir() {
-		setBackground(this.cores.getPadrao());
-		setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		
+		setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		if(this.campo.isMinado()) {
+			this.aplicarEstiloExplodir();
+			return;
+		}
+		
+		setBackground(this.cores.getPadrao());
+
 		switch (this.campo.minasNaVizinha()) {
-		case 1: 
+		case 1:
 			setForeground(this.cores.getTextoVerde());
 			break;
-		case 2: 
+		case 2:
 			setForeground(Color.BLUE);
 			break;
 		case 3:
 			setForeground(Color.YELLOW);
 			break;
-		case 4: 
+		case 4:
 		case 5:
 		case 6:
 			setForeground(Color.RED);
@@ -72,36 +79,46 @@ public class BotaoCampo extends JButton implements CampoObserver, MouseListener 
 		default:
 			setForeground(Color.PINK);
 		}
-		
+
 		String valor = !this.campo.vizinhancaSegura() ? this.campo.minasNaVizinha() + "" : "";
 		setText(valor);
-		
+
 	}
-	
+
 	private void aplicarEstiloMarcar() {
-		// TODO Auto-generated method stub
-		
+		setBackground(this.cores.getMarcar());
+		setForeground(Color.BLACK);
+		setText("M");
 	}
-	
+
 	private void aplicarEstiloExplodir() {
-		
+		setBackground(this.cores.getExplodir());
+		setForeground(Color.WHITE);
+		setText("X");
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-	
+
 		// e.getButton == 1 -> botão esquerdo
-		if(e.getButton() == 1) {
+		if (e.getButton() == 1) {
 			this.campo.abrir();
 		} else {
 			this.campo.setMarcado();
 		}
-		
+
 	}
-	
-	public void mouseClicked(MouseEvent e) {}
-	public void mouseReleased(MouseEvent e) {}
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
+
+	public void mouseClicked(MouseEvent e) {
+	}
+
+	public void mouseReleased(MouseEvent e) {
+	}
+
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	public void mouseExited(MouseEvent e) {
+	}
 
 }
