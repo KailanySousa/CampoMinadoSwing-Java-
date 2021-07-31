@@ -5,29 +5,29 @@ import java.awt.Color;
 public class Cores {
 	
 	private Color padrao;
-	private Color marcado;
-	private Color minado;
-	private Color texto;
+	private Color marcar;
+	private Color explodir;
+	private Color textoVerde;
 	
 	public Cores() {
 		this.setPadrao(new Color(184, 184, 184));
-		this.setMarcado(new Color(189, 66, 68));
-		this.setMinado(new Color(8, 179, 247));
-		this.setTexto(new Color(0, 100, 0));
+		this.setMarcar(new Color(189, 66, 68));
+		this.setExplodir(new Color(8, 179, 247));
+		this.setTextoVerde(new Color(0, 100, 0));
 	}
 	
-	public Cores(Color padrao, Color marcado, Color minado, Color texto) {
+	public Cores(Color padrao, Color marcar, Color explodir, Color textoVerde) {
 		this.setPadrao(padrao);
-		this.setMarcado(marcado);
-		this.setMinado(minado);
-		this.setTexto(texto);
+		this.setMarcar(marcar);
+		this.setExplodir(explodir);
+		this.setTextoVerde(textoVerde);
 	}
 	
-	public Cores(Color padrao, Color marcado, Color minado) {
+	public Cores(Color padrao, Color marcar, Color explodir) {
 		this.setPadrao(padrao);
-		this.setMarcado(marcado);
-		this.setMinado(minado);
-		this.setTexto(new Color(0, 100, 0));
+		this.setMarcar(marcar);
+		this.setExplodir(explodir);
+		this.setTextoVerde(new Color(0, 100, 0));
 	}
 
 	public Color getPadrao() {
@@ -38,28 +38,28 @@ public class Cores {
 		this.padrao = padrao;
 	}
 
-	public Color getTexto() {
-		return texto;
+	public Color getTextoVerde() {
+		return textoVerde;
 	}
 
-	public void setTexto(Color texto) {
-		this.texto = texto;
+	public void setTextoVerde(Color textoVerde) {
+		this.textoVerde = textoVerde;
 	}
 
-	public Color getMarcado() {
-		return marcado;
+	public Color getMarcar() {
+		return marcar;
 	}
 
-	public void setMarcado(Color marcado) {
-		this.marcado = marcado;
+	public void setMarcar(Color marcado) {
+		this.marcar = marcado;
 	}
 
-	public Color getMinado() {
-		return minado;
+	public Color getExplodir() {
+		return explodir;
 	}
 
-	public void setMinado(Color minado) {
-		this.minado = minado;
+	public void setExplodir(Color minado) {
+		this.explodir = minado;
 	}
 
 }

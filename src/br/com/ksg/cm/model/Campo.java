@@ -71,7 +71,7 @@ public class Campo {
 
 	}
 	
-	void setMarcado() {
+	public void setMarcado() {
 		if(!this.aberto) {
 			this.marcado = !this.marcado;
 			
@@ -83,7 +83,7 @@ public class Campo {
 		}
 	}
 	
-	boolean abrir() {
+	public boolean abrir() {
 		if(!this.aberto && !this.marcado) {
 			this.aberto = true;
 			
@@ -100,7 +100,7 @@ public class Campo {
 		}
 	}
 	
-	boolean vizinhancaSegura() {
+	public boolean vizinhancaSegura() {
 		return vizinhos.stream().noneMatch(v -> v.minado);
 	}
 	
@@ -144,8 +144,8 @@ public class Campo {
 		return desvendado || protegido;
 	}
 	
-	long minasNaVizinha() {
-		return vizinhos.stream().filter(v -> v.minado).count();
+	public int minasNaVizinha() {
+		return (int) vizinhos.stream().filter(v -> v.minado).count();
 	}
 	
 	void reiniciar() {
